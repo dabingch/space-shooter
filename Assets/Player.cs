@@ -4,8 +4,11 @@ public class Player : MonoBehaviour
 {
     [SerializeField]
     private float _speed = 3.5f;
-    private float _horizontalBounds = 14f;
+    private float _horizontalBounds = 13f;
     private float _verticalBounds = 3f;
+
+    [SerializeField]
+    private GameObject _laserPrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +20,11 @@ public class Player : MonoBehaviour
     void Update()
     {
         CalculateMovement();
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Instantiate(_laserPrefab, transform.position, Quaternion.identity); // Quaternion means default value
+        }
     }
 
     private void CalculateMovement()
