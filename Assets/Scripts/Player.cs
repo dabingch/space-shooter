@@ -5,10 +5,14 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _speed = 3.5f;
     private float _horizontalBounds = 13.0f;
-    private float _verticalBounds = 3.0f;
+    private float _verticalBounds = 3.5f;
 
     [SerializeField]
     private GameObject _laserPrefab;
+
+    [SerializeField]
+    private float _fireRate = .5f;
+    private float _canFire = -1f;
 
     // Start is called before the first frame update
     void Start()
@@ -21,9 +25,10 @@ public class Player : MonoBehaviour
     {
         CalculateMovement();
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
         {
-            Instantiate(_laserPrefab, transform.position, Quaternion.identity); // Quaternion means default value
+            _canFire = Time.time + _fireRate;
+            Instantiate(_laserPrefab, transform.position + new Vector3(0, .8f, 0), Quaternion.identity); // Quaternion means default value
         }
     }
 
