@@ -4,8 +4,8 @@ public class Player : MonoBehaviour
 {
     [SerializeField]
     private float _speed = 3.5f;
-    private float _horizontalBounds = 13f;
-    private float _verticalBounds = 3f;
+    private float _horizontalBounds = 13.0f;
+    private float _verticalBounds = 3.0f;
 
     [SerializeField]
     private GameObject _laserPrefab;
