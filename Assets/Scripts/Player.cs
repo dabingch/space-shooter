@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     private GameObject _laserPrefab;
 
     [SerializeField]
-    private float _fireRate = .5f;
+    private float _fireRate = .15f;
     private float _canFire = -1f;
 
     // Start is called before the first frame update
@@ -24,12 +24,16 @@ public class Player : MonoBehaviour
     void Update()
     {
         CalculateMovement();
-
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
         {
-            _canFire = Time.time + _fireRate;
-            Instantiate(_laserPrefab, transform.position + new Vector3(0, .8f, 0), Quaternion.identity); // Quaternion means default value
+            FireLaser();
         }
+    }
+
+    private void FireLaser()
+    {
+        _canFire = Time.time + _fireRate;
+        Instantiate(_laserPrefab, transform.position + new Vector3(0, .8f, 0), Quaternion.identity); // Quaternion means default value
     }
 
     private void CalculateMovement()
