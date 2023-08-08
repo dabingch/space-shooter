@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _fireRate = .15f;
     private float _canFire = -1f;
-    private float _laserSpeedRate = .8f;
+    private float _laserPosOffset = 1.05f;
 
     [SerializeField]
     private int _lives = 3;
@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
     private void FireLaser()
     {
         _canFire = Time.time + _fireRate;
-        Instantiate(_laserPrefab, transform.position + new Vector3(0, _laserSpeedRate, 0), Quaternion.identity); // Quaternion means default value
+        Instantiate(_laserPrefab, transform.position + new Vector3(0, _laserPosOffset, 0), Quaternion.identity); // Quaternion means default value
     }
 
     private void CalculateMovement()
