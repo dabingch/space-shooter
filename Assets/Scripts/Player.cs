@@ -11,8 +11,8 @@ public class Player : MonoBehaviour
     private GameObject _laserPrefab;
 
     [SerializeField]
-    private float _fireRate = .15f;
-    private float _canFire = -1f;
+    private float _fireRate = .15f; // Time for fire cool down
+    private float _canFire = -1f; // Time used to compared with the current time 
     private float _laserPosOffset = 1.05f;
 
     [SerializeField]
@@ -20,11 +20,12 @@ public class Player : MonoBehaviour
 
     private SpawnManager _spawnManager;
 
-    // Start is called before the first frame update
     void Start()
-    {
+    {   
+        // Initial player position
         transform.position = new Vector3(0, 0, 0);
-        _spawnManager = GameObject.Find("Spawn Manager").GetComponent<SpawnManager>(); // Access the SpawnManager script
+        // Find and access the SpawnManager script
+        _spawnManager = GameObject.Find("Spawn Manager").GetComponent<SpawnManager>();
 
         if (_spawnManager is null)
         {
@@ -32,7 +33,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         CalculateMovement();
@@ -56,9 +56,11 @@ public class Player : MonoBehaviour
         Vector3 direction = new Vector3(horizontalInput, vertialInput, 0);
         transform.Translate(direction * _speed * Time.deltaTime);
 
+        // Set up vertical movement bounds
         var verticalBounds = Mathf.Clamp(transform.position.y, _verticalBounds * -1, _verticalBounds);
         transform.position = new Vector3(transform.position.x, verticalBounds, 0);
 
+        // Set up horizontal movement bounds
         if (transform.position.x > _horizontalBounds)
         {
             transform.position = new Vector3(_horizontalBounds * -1, transform.position.y, 0);

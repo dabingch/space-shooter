@@ -1,6 +1,9 @@
 using System.Collections;
 using UnityEngine;
 
+/**
+ * A class used to communicate with player and enemy
+ */
 public class SpawnManager : MonoBehaviour
 {
     [SerializeField]
@@ -10,18 +13,19 @@ public class SpawnManager : MonoBehaviour
 
     private bool _stopSpawning;
 
-    // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(SpawnRoutine());
     }
 
-    // Update is called once per frame
     void Update()
     {
 
     }
 
+    /**
+     * Every five seconds spawn an enemy with a random x position
+     */
     private IEnumerator SpawnRoutine()
     {
         while (!_stopSpawning)
