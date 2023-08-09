@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 /**
- * A class used to communicate with player and enemy
+ * A class used to manager spawn for every game object
  */
 public class SpawnManager : MonoBehaviour
 {
@@ -11,22 +11,21 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject _enemyContainer;
 
+    [SerializeField]
+    private GameObject _tripleShotPowerupPrefab;
+
     private bool _stopSpawning;
 
     void Start()
     {
-        StartCoroutine(SpawnRoutine());
-    }
-
-    void Update()
-    {
-
+        StartCoroutine(SpawnEnemyRoutine());
+        StartCoroutine(SpawnPowerupRoutine());
     }
 
     /**
      * Every five seconds spawn an enemy with a random x position
      */
-    private IEnumerator SpawnRoutine()
+    private IEnumerator SpawnEnemyRoutine()
     {
         while (!_stopSpawning)
         {
@@ -37,6 +36,17 @@ public class SpawnManager : MonoBehaviour
             yield return new WaitForSeconds(5f);
         }
 
+    }
+
+    private IEnumerator SpawnPowerupRoutine()
+    {
+        while (!_stopSpawning)
+        {
+            float randomX = Random.Range(-8f, 8f);
+            Vector3 posToSpawn = new Vector3(randomX, 7, 0);
+            Instantiate(_tripleShotPowerupPrefab, posToSpawn, Quaternion.identity);
+            yield return new WaitForSeconds(Random.Range(3, 8));
+        }
     }
 
     public void OnPlayerDeath()

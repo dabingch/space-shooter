@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 123410708}
   - component: {fileID: 123410707}
   - component: {fileID: 123410710}
+  - component: {fileID: 123410711}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -155,8 +156,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 10.37
-  _laserPrefab: {fileID: 6287209264602034133, guid: 4ae6ef4a43c6b5a43b7fc8bab12717d5, type: 3}
-  _fireRate: 0.2
+  _laserPrefab: {fileID: 4711912813429579310, guid: 4ae6ef4a43c6b5a43b7fc8bab12717d5, type: 3}
+  _tripleShotPrefab: {fileID: 9014079804830783040, guid: 0dee3854b22dc394c87b640be8898138, type: 3}
+  _fireRate: 0.1
+  _isTripleShootActive: 0
   _lives: 3
 --- !u!212 &123410708
 SpriteRenderer:
@@ -218,7 +221,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 123410706}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.27, y: -3.16, z: 0}
+  m_LocalPosition: {x: -0.33, y: -2.17, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -238,7 +241,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.028570771, y: -0.014285088}
+  m_Offset: {x: 0.028570771, y: 0.038479805}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -249,8 +252,29 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.1200864, y: 4.1200438}
+  m_Size: {x: 3.1200864, y: 3.998023}
   m_EdgeRadius: 0
+--- !u!95 &123410711
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 123410706}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3a316b2be7d37ca409ddc3c2130b2de2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -338,7 +362,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -7.97, y: 4.26, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -575,6 +599,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyPrefab: {fileID: 578376916338630916, guid: 429f737f928bea44ea2ac08b93e6dc59, type: 3}
   _enemyContainer: {fileID: 1350086101}
+  _tripleShotPowerupPrefab: {fileID: 4532490745694700923, guid: b89d31d57a39d194ca7b72fe9651f6b7, type: 3}
 --- !u!4 &1972297283
 Transform:
   m_ObjectHideFlags: 0
