@@ -5,6 +5,8 @@ public class Player : MonoBehaviour
 {
     [SerializeField]
     private float _speed = 3.5f;
+    [SerializeField]
+    private float _speedMultiplier = 2f;
     private float _horizontalBounds = 13.0f;
     private float _verticalBounds = 3.5f;
 
@@ -17,8 +19,9 @@ public class Player : MonoBehaviour
     private float _fireRate = .15f; // Time for fire cool down
     private float _canFire = -1f; // Time used to compared with the current time 
     private float _laserPosOffset = 1.05f;
-    [SerializeField]
+
     private bool _isTripleShootActive = false;
+    //private bool _isSpeedBoostActive = false;
 
     [SerializeField]
     private int _lives = 3;
@@ -26,7 +29,7 @@ public class Player : MonoBehaviour
     private SpawnManager _spawnManager;
 
     void Start()
-    {   
+    {
         // Initial player position
         transform.position = new Vector3(0, 0, 0);
         // Find and access the SpawnManager script
@@ -67,6 +70,7 @@ public class Player : MonoBehaviour
         float vertialInput = Input.GetAxis("Vertical");
 
         Vector3 direction = new Vector3(horizontalInput, vertialInput, 0);
+
         transform.Translate(direction * _speed * Time.deltaTime);
 
         // Set up vertical movement bounds
@@ -105,5 +109,19 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(5.0f);
         _isTripleShootActive = false;
+    }
+
+    public void SpeedBoostActive()
+    {
+        //_isSpeedBoostActive = true;
+        _speed *= _speedMultiplier;
+        StartCoroutine(SpeedPowerdownRoutine());
+    }
+
+    private IEnumerator SpeedPowerdownRoutine()
+    {
+        yield return new WaitForSeconds(3.0f);
+        //_isSpeedBoostActive = false;
+        _speed /= _speedMultiplier;
     }
 }

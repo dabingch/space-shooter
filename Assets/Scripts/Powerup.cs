@@ -8,9 +8,8 @@ public class Powerup : MonoBehaviour
     private float _speed = 3.0f;
     [SerializeField]
     private float _lowerBounds = -8f;
-
     [SerializeField]
-    private GameObject _powerupPrefab;
+    private int _powerupID;
 
     // Update is called once per frame
     void Update()
@@ -33,7 +32,20 @@ public class Powerup : MonoBehaviour
 
             if (player)
             {
-                player.TripleShotActive();
+                switch (_powerupID)
+                {
+                    case 0:
+                        player.TripleShotActive();
+                        break;
+                    case 1:
+                        player.SpeedBoostActive();
+                        break;
+                    case 2:
+                        break;
+                    default:
+                        break;
+                }
+                
                 Destroy(this.gameObject);
             }
         }
