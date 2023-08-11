@@ -21,7 +21,9 @@ public class Player : MonoBehaviour
     private float _laserPosOffset = 1.05f;
 
     private bool _isTripleShootActive = false;
-    //private bool _isSpeedBoostActive = false;
+    private bool _isShieldActive = false;
+    [SerializeField]
+    private GameObject _shieldVisualizer;
 
     [SerializeField]
     private int _lives = 3;
@@ -90,6 +92,13 @@ public class Player : MonoBehaviour
 
     public void Damage()
     {
+        if (_isShieldActive)
+        {
+            _isShieldActive = false;
+            _shieldVisualizer.SetActive(false);
+            return;
+        }
+
         _lives--;
 
         if (_lives == 0)
@@ -113,7 +122,6 @@ public class Player : MonoBehaviour
 
     public void SpeedBoostActive()
     {
-        //_isSpeedBoostActive = true;
         _speed *= _speedMultiplier;
         StartCoroutine(SpeedPowerdownRoutine());
     }
@@ -121,7 +129,19 @@ public class Player : MonoBehaviour
     private IEnumerator SpeedPowerdownRoutine()
     {
         yield return new WaitForSeconds(3.0f);
-        //_isSpeedBoostActive = false;
         _speed /= _speedMultiplier;
     }
+
+    public void ShieldActive()
+    {
+        _isShieldActive = true;
+        _shieldVisualizer.SetActive(true);
+        //StartCoroutine(ShieldPowerdownRoutine());
+    }
+
+    //private IEnumerator ShieldPowerdownRoutine()
+    //{
+    //    yield return new WaitForSeconds(5.0f);
+    //    _isShieldActive = false;
+    //}
 }
