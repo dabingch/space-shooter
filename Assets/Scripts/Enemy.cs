@@ -7,9 +7,11 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private float _speed = 4.0f;
 
-    void Start()
-    {
+    private Player _player;
 
+    private void Start()
+    {
+        _player = GameObject.Find("Player").GetComponent<Player>();
     }
 
     void Update()
@@ -40,6 +42,10 @@ public class Enemy : MonoBehaviour
         else if (collidorTag == "Laser")
         {
             Destroy(other.gameObject);
+            if (_player is not null)
+            {
+                _player.AddScore(10);
+            }
         }
 
         Destroy(this.gameObject);

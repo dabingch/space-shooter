@@ -30,16 +30,28 @@ public class Player : MonoBehaviour
 
     private SpawnManager _spawnManager;
 
+    [SerializeField]
+    private int _score;
+
+    private UIManager _uiManager;
+
     void Start()
     {
         // Initial player position
         transform.position = new Vector3(0, 0, 0);
         // Find and access the SpawnManager script
         _spawnManager = GameObject.Find("Spawn Manager").GetComponent<SpawnManager>();
+        // Find canvas and access the UIManager script
+        _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
 
         if (_spawnManager is null)
         {
-            Debug.LogError("The spawn manager is null");
+            Debug.LogError("The Spawn Manager is null");
+        }
+
+        if (_uiManager is null)
+        {
+            Debug.Log("The UI Manager is null");
         }
     }
 
@@ -144,4 +156,10 @@ public class Player : MonoBehaviour
     //    yield return new WaitForSeconds(5.0f);
     //    _isShieldActive = false;
     //}
+
+    public void AddScore(int points)
+    {
+        _score += points;
+        _uiManager.UpdateScore(_score);
+    }
 }
