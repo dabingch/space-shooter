@@ -149,14 +149,7 @@ public class Player : MonoBehaviour
     {
         _isShieldActive = true;
         _shieldVisualizer.SetActive(true);
-        //StartCoroutine(ShieldPowerdownRoutine());
     }
-
-    //private IEnumerator ShieldPowerdownRoutine()
-    //{
-    //    yield return new WaitForSeconds(5.0f);
-    //    _isShieldActive = false;
-    //}
 
     public void AddScore(int points)
     {
