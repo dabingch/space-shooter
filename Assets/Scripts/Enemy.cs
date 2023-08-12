@@ -8,10 +8,21 @@ public class Enemy : MonoBehaviour
     private float _speed = 4.0f;
 
     private Player _player;
+    private Animator _anim;
 
     private void Start()
     {
         _player = GameObject.Find("Player").GetComponent<Player>();
+        if (_player is null)
+        {
+            Debug.LogError("Player is null");
+        }
+
+        _anim = GetComponent<Animator>();
+        if (_anim is null)
+        {
+            Debug.LogError("Anim is null");
+        }
     }
 
     void Update()
@@ -48,6 +59,8 @@ public class Enemy : MonoBehaviour
             }
         }
 
-        Destroy(this.gameObject);
+        _anim.SetTrigger("OnEnemyDeath");
+        _speed = 0;
+        Destroy(this.gameObject, 2.8f);
     }
 }
