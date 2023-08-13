@@ -49,6 +49,7 @@ public class Enemy : MonoBehaviour
             {
                 player.Damage();
             }
+            DestoryEnemy();
         }
         else if (collidorTag == "Laser")
         {
@@ -57,8 +58,12 @@ public class Enemy : MonoBehaviour
             {
                 _player.AddScore(10);
             }
+            DestoryEnemy();
         }
+    }
 
+    private void DestoryEnemy()
+    {
         _anim.SetTrigger("OnEnemyDeath");
         _speed = 0;
         Destroy(this.gameObject, 2.8f);
