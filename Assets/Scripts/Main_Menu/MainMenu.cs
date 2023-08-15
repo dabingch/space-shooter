@@ -7,7 +7,7 @@ public class MainMenu : MonoBehaviour
 {
     public void LoadGame()
     {
-        // Start the game
+        // Start the game, config on the button component
         SceneManager.LoadScene(1);
     }
 }

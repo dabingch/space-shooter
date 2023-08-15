@@ -27,7 +27,7 @@ public class UIManager : MonoBehaviour
         _gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         if (_gameManager is null)
         {
-            Debug.Log("Game Manager is null");
+            Debug.LogError("Game Manager is null");
         }
     }
 
