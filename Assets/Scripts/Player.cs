@@ -89,7 +89,6 @@ public class Player : MonoBehaviour
         if (_isTripleShootActive)
         {
             Instantiate(_tripleShotPrefab, transform.position, Quaternion.identity);
-            Debug.Log(transform.position);
         }
         else
         {

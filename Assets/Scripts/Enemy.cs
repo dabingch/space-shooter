@@ -13,13 +13,13 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        _player = GameObject.Find("Player").GetComponent<Player>();
-        _audioSource = GetComponent<AudioSource>();
-
+        _player = GameObject.Find("Player").GetComponent<Player>(); // player instance
         if (_player is null)
         {
             Debug.LogError("Player is null");
         }
+
+        _audioSource = GetComponent<AudioSource>();
 
         _anim = GetComponent<Animator>();
         if (_anim is null)
@@ -30,7 +30,7 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        transform.Translate(Vector3.down * _speed * Time.deltaTime);
+        transform.Translate(Vector3.down * _speed * Time.deltaTime); // Move up per second
 
         // If enemy is out of bound, then reposition
         if (transform.position.y < -5f)
@@ -67,10 +67,10 @@ public class Enemy : MonoBehaviour
 
     private void DestoryEnemy()
     {
-        _anim.SetTrigger("OnEnemyDeath");
-        _speed = 0;
-        _audioSource.Play();
-        Destroy(GetComponent<Collider2D>());
-        Destroy(this.gameObject, 2.8f);
+        _anim.SetTrigger("OnEnemyDeath"); // Explosion anim
+        _speed = 0; // Freeze enemy
+        _audioSource.Play(); // Explosion sound
+        Destroy(GetComponent<Collider2D>()); // Prevent damaging player
+        Destroy(this.gameObject, 2.8f); // Wait for the explosion anim
     }
 }

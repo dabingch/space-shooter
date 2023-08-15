@@ -10,6 +10,8 @@ public class SpawnManager : MonoBehaviour
     private GameObject _enemyPrefab;
     [SerializeField]
     private GameObject _enemyContainer;
+    [SerializeField]
+    private GameObject _powerupContainer;
 
     [SerializeField]
     private GameObject[] _powerups;
@@ -49,7 +51,8 @@ public class SpawnManager : MonoBehaviour
             float randomX = Random.Range(-8f, 8f);
             Vector3 posToSpawn = new Vector3(randomX, 7, 0);
             GameObject randomPowerup = _powerups[Random.Range(0, 3)];
-            Instantiate(randomPowerup, posToSpawn, Quaternion.identity);
+            GameObject newPowerup = Instantiate(randomPowerup, posToSpawn, Quaternion.identity);
+            newPowerup.transform.parent = _powerupContainer.transform;
             yield return new WaitForSeconds(Random.Range(5, 8));
         }
     }
