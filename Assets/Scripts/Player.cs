@@ -47,22 +47,22 @@ public class Player : MonoBehaviour
     {
         // Initial player position
         transform.position = new Vector3(0, 0, 0);
+
         // Find and access the SpawnManager script
         _spawnManager = GameObject.Find("Spawn Manager").GetComponent<SpawnManager>();
-        // Find canvas and access the UIManager script
-        _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
-        _audioSource = GetComponent<AudioSource>();
-
         if (_spawnManager is null)
         {
             Debug.LogError("The Spawn Manager is null");
         }
 
+        // Find canvas and access the UIManager script
+        _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
         if (_uiManager is null)
         {
             Debug.LogError("The UI Manager is null");
         }
 
+        _audioSource = GetComponent<AudioSource>();
         if (_audioSource is null)
         {
             Debug.LogError("Audio Source on the player is null");

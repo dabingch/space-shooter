@@ -11,6 +11,9 @@ public class Enemy : MonoBehaviour
     private Animator _anim;
     private AudioSource _audioSource;
 
+    private float _lowerBoundOfEnemy = -5f;
+    private float _initalYPosOfEnemy = 7f;
+
     private void Start()
     {
         _player = GameObject.Find("Player").GetComponent<Player>(); // player instance
@@ -20,6 +23,10 @@ public class Enemy : MonoBehaviour
         }
 
         _audioSource = GetComponent<AudioSource>();
+        if (_audioSource is null)
+        {
+            Debug.LogError("Audio Source is null");
+        }
 
         _anim = GetComponent<Animator>();
         if (_anim is null)
@@ -33,10 +40,10 @@ public class Enemy : MonoBehaviour
         transform.Translate(Vector3.down * _speed * Time.deltaTime); // Move up per second
 
         // If enemy is out of bound, then reposition
-        if (transform.position.y < -5f)
+        if (transform.position.y < _lowerBoundOfEnemy)
         {
             float randomX = Random.Range(-8f, 8f);
-            transform.position = new Vector3(randomX, 7, 0);
+            transform.position = new Vector3(randomX, _initalYPosOfEnemy, 0);
         }
     }
 
@@ -46,30 +53,22 @@ public class Enemy : MonoBehaviour
 
         if (collidorTag == "Player")
         {
-            Player player = other.transform.GetComponent<Player>();
-
-            if (player)
-            {
-                player.Damage();
-            }
+            _player.Damage();
             DestoryEnemy();
         }
         else if (collidorTag == "Laser")
         {
             Destroy(other.gameObject);
-            if (_player is not null)
-            {
-                _player.AddScore(10);
-            }
+            _player.AddScore(10);
             DestoryEnemy();
         }
     }
 
     private void DestoryEnemy()
     {
-        _anim.SetTrigger("OnEnemyDeath"); // Explosion anim
+        _anim.SetTrigger("OnEnemyDeath"); // Trigger explosion anim
         _speed = 0; // Freeze enemy
-        _audioSource.Play(); // Explosion sound
+        _audioSource.Play(); // Play explosion sound
         Destroy(GetComponent<Collider2D>()); // Prevent damaging player
         Destroy(this.gameObject, 2.8f); // Wait for the explosion anim
     }
