@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private bool _isGameOver;
 
+    [SerializeField]
+    public bool IsCoOpMode = false;
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.R) && _isGameOver)

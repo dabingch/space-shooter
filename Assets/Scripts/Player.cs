@@ -34,6 +34,7 @@ public class Player : MonoBehaviour
     private int _score;
 
     private UIManager _uiManager;
+    private GameManager _gameManager;
 
     [SerializeField]
     private GameObject _leftEngine, _rightEngine;
@@ -43,11 +44,13 @@ public class Player : MonoBehaviour
     
     private AudioSource _audioSource;
 
+    [SerializeField]
+    private bool _isPlayerOne;
+    [SerializeField]
+    private bool _isPlayerTwo;
+
     void Start()
     {
-        // Initial player position
-        transform.position = new Vector3(0, 0, 0);
-
         // Find and access the SpawnManager script
         _spawnManager = GameObject.Find("Spawn Manager").GetComponent<SpawnManager>();
         if (_spawnManager is null)
@@ -62,6 +65,12 @@ public class Player : MonoBehaviour
             Debug.LogError("The UI Manager is null");
         }
 
+        _gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        if (_gameManager is null)
+        {
+            Debug.LogError("Game Manager is null");
+        }
+
         _audioSource = GetComponent<AudioSource>();
         if (_audioSource is null)
         {
@@ -70,6 +79,12 @@ public class Player : MonoBehaviour
         else
         {
             _audioSource.clip = _laserSoundClip;
+        }
+
+        if (!_gameManager.IsCoOpMode)
+        {
+            // Initial player position
+            transform.position = new Vector3(0, 0, 0);
         }
     }
 
