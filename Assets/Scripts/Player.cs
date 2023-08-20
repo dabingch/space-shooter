@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using System;
 
 public class Player : MonoBehaviour
 {
@@ -41,13 +42,14 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private AudioClip _laserSoundClip;
-    
     private AudioSource _audioSource;
 
     [SerializeField]
     private bool _isPlayerOne;
     [SerializeField]
     private bool _isPlayerTwo;
+
+    private Animator _anim;
 
     void Start()
     {
@@ -86,11 +88,18 @@ public class Player : MonoBehaviour
             // Initial player position
             transform.position = new Vector3(0, 0, 0);
         }
+
+        _anim = GetComponent<Animator>();
+        if (_anim is null)
+        {
+            Debug.LogError("Animator is null");
+        }
     }
 
     void Update()
     {
         CalculateMovement();
+        PlayerTurnAnim();
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
         {
             FireLaser();
@@ -134,6 +143,25 @@ public class Player : MonoBehaviour
         else if (transform.position.x < _horizontalBounds * -1)
         {
             transform.position = new Vector3(_horizontalBounds, transform.position.y, 0);
+        }
+    }
+
+    private void PlayerTurnAnim()
+    {
+        if (Input.GetKey(KeyCode.A))
+        {
+            _anim.SetBool("isTurningLeft", true);
+            _anim.SetBool("isTurningRight", false);
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            _anim.SetBool("isTurningLeft", false);
+            _anim.SetBool("isTurningRight", true);
+        }
+        else
+        {
+            _anim.SetBool("isTurningLeft", false);
+            _anim.SetBool("isTurningRight", false);
         }
     }
 
